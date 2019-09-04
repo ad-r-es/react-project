@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { Switch, Route } from 'react-router-dom';
 
@@ -11,13 +11,13 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Switch>
-          <Route path="/auth" component={Auth} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/about" component={About} />
-          <Route path="/" exact component={Home} />
-        </Switch>
       </header>
+      <Switch>
+        <Route path="/auth" component={Auth} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/about" component={About} />
+        <Route path="/" exact component={Home} />
+      </Switch>
     </div>
   );
 };
