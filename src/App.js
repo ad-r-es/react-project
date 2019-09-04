@@ -1,14 +1,18 @@
 import React from 'react';
 import './App.scss';
-import { Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Home from './containers/Home/Home';
+import About from './components/About';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <Route path="/" exact component={Home} />
+        <Switch>
+          <Route path="/about" component={About} />
+          <Route path="/" exact component={Home} />
+        </Switch>
       </header>
     </div>
   );
