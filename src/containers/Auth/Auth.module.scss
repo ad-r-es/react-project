@@ -1,0 +1,54 @@
+.Auth {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.Button1 {
+  border: none;
+  padding: 0px;
+  background-color: #f7fdff;
+  text-decoration: underline;
+  font-size: 16px;
+  color: #743;
+}
+
+.Button1:hover, .Button1:focus {
+  color: #a66;
+  background-color: #f7fdff;
+}
+
+@media (min-width: 600px) {
+  .Auth {
+    width: 500px;
+  }
+}
+
+input {
+  padding: 4px;
+  margin: auto;
+  display: block;
+  border: 1px solid #987;
+  border-radius: 2px;
+}
+
+button {
+  border: 1px solid #987;
+  border-radius: 2px;
+  padding: 12px 18px 12px 18px;
+  font-size: 16px;
+  margin: 8px;
+  cursor: pointer;
+  background-color: #ccd9e0;
+}
+
+button:hover, button:focus {
+  transition: background-color 0.2s ease;
+  background-color: #567;
+  color: white;
+}

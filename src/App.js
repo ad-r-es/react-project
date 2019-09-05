@@ -12,7 +12,7 @@ const App = () => {
     <nav>
       <NavLink to="/" className="Navlink">Home</NavLink>
       <NavLink to="/about" className="Navlink">About</NavLink>
-      <NavLink to="/auth" className="Navlink">Log In</NavLink>
+      <NavLink to="/auth" className="Navlink">Sign In</NavLink>
     </nav>
   );
 
