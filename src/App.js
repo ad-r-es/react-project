@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import Home from './containers/Home/Home';
 import Auth from './containers/Auth/Auth';
@@ -18,7 +18,16 @@ const App = () => {
         <Route path="/about" component={About} />
         <Route path="/" exact component={Home} />
       </Switch>
-      <footer>
+      <footer className="App-footer">
+        <p><Link className="App-link" to="/about">About page</Link></p>
+        <p>
+          <a
+            className="App-link"
+            href="https://github.com/ad-r-es/react-project"
+          >
+            GitHub repository
+          </a>
+        </p>
       </footer>
     </div>
   );
