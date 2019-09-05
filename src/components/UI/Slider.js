@@ -7,16 +7,25 @@ const Slider = props => {
   const [index, setIndex] = useState(0);
   const [factCount, setFactCount] = useState(0);
   const [slide, setSlide] = useState('');
+  const [responseData, setResponseData] = useState(null);
 
   useEffect(() => {
     // console.log(index);
-    axios.get('https://react-o.firebaseio.com/slides.json')
-      .then(response => {
-        // console.log(response.data[index]);
-        setFactCount(response.data.length);
-        setSlide(response.data[index]);
-      });
-  }, [index]);
+    const fetchData = () => {
+      axios.get('https://react-o.firebaseio.com/slides.json')
+        .then(response => {
+          // console.log(response.data[index]);
+          setFactCount(response.data.length);
+          setSlide(response.data[0]);
+          setResponseData(response.data);
+        });
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    responseData && setSlide(responseData[index])
+  }, [responseData, index])
 
   const prevClickHandler = () => {
     let prevIndex = index;
