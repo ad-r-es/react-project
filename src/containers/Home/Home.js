@@ -6,7 +6,7 @@ import Slider from '../../components/UI/Slider';
 const Home = () => {
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Ocean Facts</h1>
       <Slider />
     </div>
   );
