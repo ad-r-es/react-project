@@ -36,6 +36,11 @@
   left: 0;
 }
 
+.Prev:focus, .Next:focus {
+  background-color: #ccd9e0;
+  color: #c0b9af;
+}
+
 .Prev:hover, .Next:hover {
   background-color: rgba(0,16,32,0.3);
   color: #567;

@@ -1,20 +1,59 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
-import { Switch, Route, Link, NavLink } from 'react-router-dom';
+import { Switch, Route, Link, NavLink, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Home from './containers/Home/Home';
 import Auth from './containers/Auth/Auth';
 import About from './components/About';
 import Profile from './components/Profile';
+import * as actions from './store/actions/auth';
 
-const App = () => {
-  const navLinks = (
+const App = props => {
+  const {onTryReSignIn} = props;
+
+  useEffect(() => {
+    onTryReSignIn();
+  }, [onTryReSignIn]);
+
+  let navLinks = (
     <nav>
       <NavLink to="/" className="Navlink">Home</NavLink>
       <NavLink to="/about" className="Navlink">About</NavLink>
       <NavLink to="/auth" className="Navlink">Sign In</NavLink>
     </nav>
   );
+
+  if (props.token) {
+    navLinks = (
+      <nav>
+        <NavLink to="/" className="Navlink">Home</NavLink>
+        <NavLink to="/about" className="Navlink">About</NavLink>
+        <NavLink to="/profile" className="Navlink">Profile</NavLink>
+        <NavLink to="/" className="Navlink-danger" onClick={props.onLogout}>Sign Out</NavLink>
+      </nav>
+    );
+  }
+
+  let routes = (
+    <Switch>
+      <Route path="/auth" component={Auth} />
+      <Route path="/about" component={About} />
+      <Route path="/" exact component={Home} />
+      <Redirect to="/auth" />
+    </Switch>
+  );
+
+  if (new Date(localStorage.expirationDate) >= new Date()) {
+    routes = (
+      <Switch>
+        <Route path="/about" component={About} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/" exact component={Home} />
+        <Redirect to="/" />
+      </Switch>
+    );
+  }
 
   return (
     <div className="App">
@@ -25,12 +64,7 @@ const App = () => {
       </header>
       <br />
       <br />
-      <Switch>
-        <Route path="/auth" component={Auth} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/about" component={About} />
-        <Route path="/" exact component={Home} />
-      </Switch>
+      {routes}
       <footer className="App-footer">
         <p><Link className="App-link" to="/about">About page</Link></p>
         <p>
@@ -52,4 +86,17 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: () => dispatch(actions.logout()),
+    onTryReSignIn: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

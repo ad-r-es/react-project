@@ -54,7 +54,13 @@ const Auth = props => {
         onChange={passwordChangedHandler}
       />
       <br />
-      <button>Submit</button>
+      <button>
+        {
+          isSignup
+          ? 'Sign Up'
+          : 'Sign In'
+        }
+      </button>
       <br />
     </form>
   );

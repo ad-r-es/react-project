@@ -9,10 +9,10 @@ const Slider = props => {
   const [slide, setSlide] = useState('');
 
   useEffect(() => {
-    console.log(index);
+    // console.log(index);
     axios.get('https://react-o.firebaseio.com/slides.json')
       .then(response => {
-        console.log(response.data[index]);
+        // console.log(response.data[index]);
         setFactCount(response.data.length);
         setSlide(response.data[index]);
       });

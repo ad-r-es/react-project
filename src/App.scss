@@ -46,6 +46,21 @@
   border-color: #fed;
 }
 
+.Navlink-danger {
+  color: #f98;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid #fba;
+  margin: 2px;
+  border-radius: 2px;
+}
+
+.Navlink-danger:hover {
+  color: #fed;
+  border-color: #fdc;
+}
+
 .App-link {
   color: #fcb;
 }
