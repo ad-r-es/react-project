@@ -1,0 +1,68 @@
+.Slider {
+  position: relative;
+  background: white;
+}
+
+.Slides {
+  height: 80px;
+  padding: 50px;
+  text-align: center;
+}
+
+.Prev, .Next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -30px;
+  padding: 12px;
+  color: #789;
+  font-weight: bold;
+  font-size: 24px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.Next {
+  position: absolute;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.Prev {
+  left: 0;
+}
+
+.Prev:hover, .Next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: white;
+}
+
+.Buttons {
+  text-align: center;
+  padding: 16px;
+  background: #ddd;
+}
+
+.Button {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin: 0px 6px;
+  border-radius: 50%;
+  background-color: #9ab;
+  transition: background-color 0.2s ease-in;
+  cursor: pointer;
+}
+
+.Active, .Button:hover {
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  margin: 0px 6px;
+  border-radius: 50%;
+  background-color: #9ab;
+  transition: background-color 0.2s ease-in;
+  cursor: pointer;
+  background-color: #567;
+}

@@ -18,6 +18,8 @@ const App = () => {
         <Route path="/about" component={About} />
         <Route path="/" exact component={Home} />
       </Switch>
+      <footer>
+      </footer>
     </div>
   );
 };
