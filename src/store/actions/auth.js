@@ -49,22 +49,35 @@ export const auth = (email, password, isSignup) => {
       returnSecureToken: true
     };
     let url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAGIDcuEd5u-7yNx9XsUuWzm_CnsGFJ_ig';
+    let userIsNew = true;
     if (!isSignup) {
       url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAGIDcuEd5u-7yNx9XsUuWzm_CnsGFJ_ig'
+      userIsNew = false;
     }
     axios.post(url, authData)
       .then(response => {
-        // console.log(response);
         const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
         localStorage.setItem('token', response.data.idToken);
         localStorage.setItem('expirationDate', expirationDate);
         localStorage.setItem('userId', response.data.localId);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
+        if (userIsNew) {
+          axios.post('https://react-o.firebaseio.com/userData.json', {
+            displayName: '',
+            bio: '',
+            userId: response.data.localId
+          }).then(response => {
+            // console.log(response);
+          }).catch(err => {
+            // console.log(err);
+          })
+        }
       })
       .catch(err => {
         // console.log(err.response);
         dispatch(authFail(err.response.data.error));
+        userIsNew = false;
       })
   };
 };

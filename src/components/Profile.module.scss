@@ -1,0 +1,50 @@
+.Info {
+  word-wrap: break-word;
+  margin: 20px auto;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 2px 3px #ccc;
+  border: 1px solid #eee;
+  padding: 18px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  font-size: 18px;
+  display: block;
+}
+
+.ProfileBtn {
+  border: 1px solid #987;
+  border-radius: 2px;
+  padding: 12px 18px 12px 18px;
+  font-size: 16px;
+  margin: auto;
+  margin-top: 8px;
+  cursor: pointer;
+  background-color: #ccd9e0;
+  text-decoration: none;
+  color: black;
+}
+
+.ProfileBtn:hover, .ProfileBtn:focus {
+  transition: background-color 0.2s ease;
+  background-color: #567;
+  color: white;
+}
+
+@media (min-width: 601px) {
+  .Info {
+    width: 80%;
+  }
+}
+
+@media (min-width: 801px) {
+  .Info {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .Info {
+    width: 50%;
+  }
+}

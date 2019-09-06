@@ -10,7 +10,7 @@ const About = () => {
       >
         https://blog.trafalgar.com
       </a>.</p>
-      <p>This project uses React, Hooks, Redux, Thunk, Scss, React-Router, Axios, Material-UI.</p>
+      <p>This project uses React, Hooks, Redux, Thunk, Scss, css modules, React-Router, Axios, Material-UI.</p>
     </div>
   );
 };
