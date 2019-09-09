@@ -6,18 +6,20 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import styles from './Auth.module.scss';
 import * as actions from '../../store/actions/auth';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   progress: {
     margin: theme.spacing(2),
   },
 }));
 
-const Auth = props => {
+const Auth = (props) => {
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isSignup, setIsSignup] = useState(true);
 
   const classes = useStyles();
+
+  const { loading, error, onAuth } = props;
 
   const nameChangedHandler = (event) => {
     setEmailValue(event.target.value);
@@ -29,43 +31,47 @@ const Auth = props => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onAuth(emailValue, passwordValue, isSignup);
+    onAuth(emailValue, passwordValue, isSignup);
   };
 
   const switchAuthMode = () => {
     setIsSignup(!isSignup);
-  }
+  };
 
   let form = (
     <form onSubmit={submitHandler}>
-      <label htmlFor="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        value={emailValue}
-        onChange={nameChangedHandler}
-      />
+      <label htmlFor="email">
+        Email
+        <input
+          id="email"
+          type="email"
+          value={emailValue}
+          onChange={nameChangedHandler}
+        />
+      </label>
       <br />
-      <label htmlFor="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        value={passwordValue}
-        onChange={passwordChangedHandler}
-      />
+      <label htmlFor="password">
+        Password
+        <input
+          id="password"
+          type="password"
+          value={passwordValue}
+          onChange={passwordChangedHandler}
+        />
+      </label>
       <br />
-      <button>
+      <button type="submit">
         {
           isSignup
-          ? 'Sign Up'
-          : 'Sign In'
+            ? 'Sign Up'
+            : 'Sign In'
         }
       </button>
       <br />
     </form>
   );
 
-  if (props.loading) {
+  if (loading) {
     form = (
       <div>
         <CircularProgress className={classes.progress} />
@@ -75,9 +81,12 @@ const Auth = props => {
 
   let errorMessage = null;
 
-  if (props.error) {
+  if (error) {
     errorMessage = (
-      <p style={{color: '#b10'}}>Error: {props.error.message}</p>
+      <p style={{ color: '#b10' }}>
+        Error:
+        {error.message}
+      </p>
     );
   }
 
@@ -89,13 +98,14 @@ const Auth = props => {
         {form}
         <span>
           <button
+            type="button"
             className={styles.Button1}
             onClick={switchAuthMode}
           >
             {
               isSignup
-              ? 'Have an account? Sign in.'
-              : 'No account yet? Sign up.'
+                ? 'Have an account? Sign in.'
+                : 'No account yet? Sign up.'
             }
           </button>
         </span>
@@ -104,17 +114,13 @@ const Auth = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    loading: state.loading,
-    error: state.error
-  };
-};
+const mapStateToProps = (state) => ({
+  loading: state.loading,
+  error: state.error,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

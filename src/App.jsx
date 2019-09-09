@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import { Switch, Route, Link, NavLink, Redirect, withRouter } from 'react-router-dom';
+import {
+  Switch, Route, Link, NavLink, Redirect, withRouter,
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Home from './containers/Home/Home';
@@ -9,8 +11,8 @@ import About from './components/About';
 import Profile from './components/Profile';
 import * as actions from './store/actions/auth';
 
-const App = props => {
-  const {onTryReSignIn} = props;
+const App = (props) => {
+  const { token, onTryReSignIn } = props;
 
   useEffect(() => {
     onTryReSignIn();
@@ -24,7 +26,7 @@ const App = props => {
     </nav>
   );
 
-  if (props.token) {
+  if (token) {
     navLinks = (
       <nav>
         <NavLink to="/" className="Navlink">Home</NavLink>
@@ -75,28 +77,27 @@ const App = props => {
             GitHub repository
           </a>
         </p>
-        <p style={{fontSize: '12px'}}>All ocean facts sourced from <a
-          className="App-link"
-          href="https://blog.trafalgar.com/2016/06/08/10-unbelievable-facts-ocean/"
-        >
+        <p style={{ fontSize: '12px' }}>
+All ocean facts sourced from
+          <a
+            className="App-link"
+            href="https://blog.trafalgar.com/2016/06/08/10-unbelievable-facts-ocean/"
+          >
           https://blog.trafalgar.com
-        </a></p>
+          </a>
+        </p>
       </footer>
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    token: state.token
-  };
-};
+const mapStateToProps = (state) => ({
+  token: state.token,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: () => dispatch(actions.logout()),
-    onTryReSignIn: () => dispatch(actions.authCheckState())
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onLogout: () => dispatch(actions.logout()),
+  onTryReSignIn: () => dispatch(actions.authCheckState()),
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

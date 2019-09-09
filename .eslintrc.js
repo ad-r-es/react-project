@@ -1,6 +1,6 @@
 module.exports = {
     "env": {
-        "browser": true,
+      "browser": true,
         "es6": true
     },
     "extends": "airbnb",
@@ -8,6 +8,7 @@ module.exports = {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    parser: 'babel-eslint',
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -19,5 +20,6 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "react/prop-types": [0, { ignore: [], customValidators: [] }]
     }
 };
