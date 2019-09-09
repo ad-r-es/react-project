@@ -14,7 +14,7 @@ This project has some ocean facts, sourced from
 .
     </p>
     <p>
-      This project uses React, Hooks, Redux, Thunk, Scss, css modules,
+      This project uses React, Hooks, Redux, Sagas, Scss, css modules,
       React-Router, Axios, Material-UI.
     </p>
   </div>
