@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import styles from './Profile.module.scss';
+import * as actions from '../store/actions/profile';
 
 const Profile = (props) => {
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [userDataKey, setUserDataKey] = useState(null);
+  const [localDisplayName, setLocalDisplayName] = useState('');
+  const [localBio, setLocalBio] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
-  const { token, userId } = props;
+  const {
+    token,
+    userId,
+    displayName,
+    bio,
+    userDataKey,
+    onLoadProfile,
+    onUpdateProfile,
+  } = props;
+
+  useEffect(() => {
+    if (displayName && bio && !isEditing) {
+      setLocalDisplayName(displayName);
+      setLocalBio(bio);
+    }
+  }, [bio, displayName, isEditing]);
 
   useEffect(() => {
     if (token && userId) {
-      const loadUserData = () => {
-        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
-        axios.get(`https://react-o.firebaseio.com/userData.json${queryParams}`)
-          .then((response) => {
-            const key = Object.keys(response.data)[0];
-            setDisplayName(response.data[key].displayName);
-            setBio(response.data[key].bio);
-            setUserDataKey(key);
-          });
-      };
-      loadUserData(token, userId);
+      onLoadProfile(token, userId);
     }
-  }, [token, userId]);
+  }, [token, userId, onLoadProfile]);
 
   const nameChangedHandler = (event) => {
-    setDisplayName(event.target.value);
+    setLocalDisplayName(event.target.value);
   };
 
   const bioChangedHandler = (event) => {
-    setBio(event.target.value);
+    setLocalBio(event.target.value);
   };
 
   const profileUpdatedHandler = () => {
     setIsEditing(false);
-    axios.put(`https://react-o.firebaseio.com/userData/${userDataKey}.json`, {
-      displayName,
-      bio,
-      userId: props.userId,
-    });
+    onUpdateProfile(localDisplayName, localBio, userId, userDataKey);
   };
 
   let info = (
@@ -79,7 +79,7 @@ const Profile = (props) => {
             <input
               id="name"
               onChange={nameChangedHandler}
-              value={displayName}
+              value={localDisplayName}
             />
           </label>
           <label htmlFor="bio">
@@ -89,7 +89,7 @@ const Profile = (props) => {
             <input
               id="bio"
               onChange={bioChangedHandler}
-              value={bio}
+              value={localBio}
             />
           </label>
           <br />
@@ -115,8 +115,18 @@ const Profile = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  token: state.token,
-  userId: state.userId,
+  token: state.auth.token,
+  userId: state.auth.userId,
+  displayName: state.profile.displayName,
+  bio: state.profile.bio,
+  userDataKey: state.profile.userDataKey,
 });
 
-export default connect(mapStateToProps, null)(Profile);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadProfile: (token, userId) => dispatch(actions.loadProfile(token, userId)),
+  onUpdateProfile: (displayName, bio, userId, userDataKey) => dispatch(
+    actions.updateProfile(displayName, bio, userId, userDataKey),
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

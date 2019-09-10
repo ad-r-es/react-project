@@ -32,7 +32,7 @@ const App = (props) => {
         <NavLink to="/" className="Navlink">Home</NavLink>
         <NavLink to="/about" className="Navlink">About</NavLink>
         <NavLink to="/profile" className="Navlink">Profile</NavLink>
-        <NavLink to="/" className="Navlink-danger" onClick={props.onLogout}>Sign Out</NavLink>
+        <NavLink to="/" className="Navlink-danger" onClick={() => props.onLogout()}>Sign Out</NavLink>
       </nav>
     );
   }
@@ -92,7 +92,7 @@ All ocean facts sourced from
 };
 
 const mapStateToProps = (state) => ({
-  token: state.token,
+  token: state.auth.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

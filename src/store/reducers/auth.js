@@ -1,5 +1,5 @@
-import * as actionTypes from './actions/actionTypes';
-import updateObject from './utility';
+import * as actionTypes from '../actions/actionTypes';
+import updateObject from '../utility';
 
 const initialState = {
   token: null,
@@ -8,7 +8,7 @@ const initialState = {
   loading: false,
 };
 
-const reducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START:
       return updateObject(state, { error: null, loading: true });
@@ -28,4 +28,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default authReducer;
