@@ -8,6 +8,7 @@ import {
   authCheckStateSaga,
 } from './auth';
 import { loadProfileSaga, updateProfileSaga } from './profile';
+import fetchDataSaga from './slider';
 
 export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
@@ -19,4 +20,8 @@ export function* watchAuth() {
 export function* watchProfile() {
   yield takeEvery(actionTypes.PROFILE_LOAD, loadProfileSaga);
   yield takeEvery(actionTypes.PROFILE_UPDATE, updateProfileSaga);
+}
+
+export function* watchSlider() {
+  yield takeEvery(actionTypes.FETCH_DATA, fetchDataSaga);
 }

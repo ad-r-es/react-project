@@ -15,13 +15,19 @@ import App from './App';
 
 import authReducer from './store/reducers/auth';
 import profileReducer from './store/reducers/profile';
-import { watchAuth, watchProfile } from './store/sagas';
+import sliderReducer from './store/reducers/slider';
+import {
+  watchAuth,
+  watchProfile,
+  watchSlider,
+} from './store/sagas';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
+  slider: sliderReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -32,6 +38,7 @@ const store = createStore(rootReducer, composeEnhancers(
 
 sagaMiddleware.run(watchAuth);
 sagaMiddleware.run(watchProfile);
+sagaMiddleware.run(watchSlider);
 
 const app = (
   <Provider store={store}>

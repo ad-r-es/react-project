@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import styles from './Slider.module.scss';
+import * as actions from '../../store/actions/slider';
 
-const Slider = () => {
+const Slider = (props) => {
   const [index, setIndex] = useState(0);
-  const [factCount, setFactCount] = useState(0);
-  const [slide, setSlide] = useState('');
-  const [responseData, setResponseData] = useState(null);
+
+  const {
+    factCount,
+    slide,
+    responseData,
+    onFetchData,
+    onDisplayData,
+  } = props;
 
   useEffect(() => {
-    const fetchData = () => {
-      axios.get('https://react-o.firebaseio.com/slides.json')
-        .then((response) => {
-          setFactCount(response.data.length);
-          setSlide(response.data[0]);
-          setResponseData(response.data);
-        });
-    };
-    fetchData();
-  }, []);
+    if (!responseData) {
+      onFetchData();
+    }
+  }, [onFetchData]);
 
   useEffect(() => {
     if (responseData) {
-      setSlide(responseData[index]);
+      onDisplayData(responseData[index]);
     }
-  }, [responseData, index]);
+  }, [responseData, onDisplayData, index]);
 
   const prevClickHandler = () => {
     const prevIndex = index;
@@ -67,4 +67,15 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+const mapStateToProps = (state) => ({
+  factCount: state.slider.factCount,
+  slide: state.slider.slide,
+  responseData: state.slider.responseData,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchData: () => dispatch(actions.fetchData()),
+  onDisplayData: (slide) => dispatch(actions.displayData(slide)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Slider);
