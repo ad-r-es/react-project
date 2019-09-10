@@ -4,28 +4,20 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import styles from './Profile.module.scss';
+import * as actions from '../store/actions/profile';
 
 const Profile = (props) => {
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [userDataKey, setUserDataKey] = useState(null);
+  const [, setDisplayName] = useState('');
+  const [, setBio] = useState('');
+  const [, setUserDataKey] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const { token, userId } = props;
+  const { token, userId, displayName, bio, userDataKey, onLoadProfile } = props;
 
   useEffect(() => {
     if (token && userId) {
-      const loadUserData = () => {
-        const queryParams = `?auth=${token}&orderBy="userId"&equalTo="${userId}"`;
-        axios.get(`https://react-o.firebaseio.com/userData.json${queryParams}`)
-          .then((response) => {
-            const key = Object.keys(response.data)[0];
-            setDisplayName(response.data[key].displayName);
-            setBio(response.data[key].bio);
-            setUserDataKey(key);
-          });
-      };
-      loadUserData(token, userId);
+      console.log(token, userId)
+      onLoadProfile(token, userId)
     }
   }, [token, userId]);
 
@@ -117,6 +109,13 @@ const Profile = (props) => {
 const mapStateToProps = (state) => ({
   token: state.token,
   userId: state.userId,
+  displayName: state.displayName,
+  bio: state.bio,
+  userDataKey: state.userDataKey,
 });
 
-export default connect(mapStateToProps, null)(Profile);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadProfile: (token, userId) => dispatch(actions.loadProfile(token, userId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
