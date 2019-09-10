@@ -5,6 +5,7 @@ const initialState = {
   displayName: '',
   bio: '',
   userDataKey: null,
+  error: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -14,6 +15,19 @@ const profileReducer = (state = initialState, action) => {
         displayName: action.displayName,
         bio: action.bio,
         userDataKey: action.userDataKey,
+      });
+    case actionTypes.PROFILE_LOAD_FAIL:
+      return updateObject(state, { error: action.error });
+    case actionTypes.PROFILE_UPDATE_SUCCESS:
+      return updateObject(state, {
+        displayName: action.displayName,
+        bio: action.bio,
+      });
+    case actionTypes.AUTH_LOGOUT:
+      return updateObject(state, {
+        displayName: '',
+        bio: '',
+        userDataKey: null,
       });
     default:
       return state;

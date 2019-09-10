@@ -115,8 +115,8 @@ const Auth = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  loading: state.loading,
-  error: state.error,
+  loading: state.auth.loading,
+  error: state.auth.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
