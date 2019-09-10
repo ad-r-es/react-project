@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import styles from './Slider.module.scss';
-import * as actions from '../../store/actions/slider';
+import * as actions from '../store/actions/slider';
 
 const Slider = (props) => {
   const [index, setIndex] = useState(0);

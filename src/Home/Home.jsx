@@ -1,5 +1,5 @@
 import React from 'react';
-import Slider from '../../components/UI/Slider';
+import Slider from '../Slider/Slider';
 
 // TODO: Move Slider below Home after testing is done.
 

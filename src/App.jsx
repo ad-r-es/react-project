@@ -5,10 +5,10 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Home from './containers/Home/Home';
-import Auth from './containers/Auth/Auth';
-import About from './components/About';
-import Profile from './components/Profile';
+import Home from './Home/Home';
+import Auth from './Auth/Auth';
+import About from './About/About';
+import Profile from './Profile/Profile';
 import * as actions from './store/actions/auth';
 
 const App = (props) => {

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import styles from './Auth.module.scss';
-import * as actions from '../../store/actions/auth';
+import * as actions from '../store/actions/auth';
 
 const useStyles = makeStyles((theme) => ({
   progress: {
